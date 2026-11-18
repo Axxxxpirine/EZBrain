@@ -1,0 +1,23 @@
+# One grouped pull request per month for the Hub dependencies (transitive ones included),
+# and one for the GitHub Actions used by the CI. Each pull request is tested by the CI.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /hub
+    schedule:
+      interval: monthly
+    allow:
+      - dependency-type: all
+    groups:
+      hub:
+        patterns: ["*"]
+    open-pull-requests-limit: 2
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      actions:
+        patterns: ["*"]
+    open-pull-requests-limit: 2
