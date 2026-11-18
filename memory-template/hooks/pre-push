@@ -1,0 +1,10 @@
+#!/bin/sh
+# EZBrain contient des informations personnelles : jamais sur GitHub.
+# Seule la copie du serveur privé (remote hub) est autorisée.
+# Installation : cp hooks/pre-push .git/hooks/ && chmod +x .git/hooks/pre-push
+case "$2" in
+  *github.com*|*gitlab.com*|*bitbucket.org*)
+    echo "EZBrain : push vers un service public interdit, le contenu reste sur le poste et le serveur privé." >&2
+    exit 1 ;;
+esac
+exit 0

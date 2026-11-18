@@ -1,0 +1,38 @@
+{
+  "name": "ezbrain-hub",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "description": "EZBrain Hub : visualisation en lecture seule d'une mémoire Markdown partagée entre agents IA",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "test": "node --experimental-strip-types --disable-warning=ExperimentalWarning --test tests/*.test.ts",
+    "dev:server": "node --watch --disable-warning=ExperimentalWarning --experimental-strip-types server/src/index.ts --config config.dev.yaml",
+    "dev:web": "vite --config web/vite.config.ts",
+    "build": "rm -rf dist && tsc -p server/tsconfig.json && vite build --config web/vite.config.ts",
+    "typecheck": "tsc -p server/tsconfig.json --noEmit && tsc -p web/tsconfig.json --noEmit",
+    "start": "node --disable-warning=ExperimentalWarning dist/server/server/src/index.js"
+  },
+  "dependencies": {
+    "@hono/node-server": "^2.1.5",
+    "hono": "^4.13.14",
+    "yaml": "^2.9.1"
+  },
+  "devDependencies": {
+    "@types/d3-force": "^3.0.10",
+    "@types/node": "^22.20.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "d3-force": "^3.0.0",
+    "dompurify": "^3.4.17",
+    "marked": "^18.1.2",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.5"
+  }
+}

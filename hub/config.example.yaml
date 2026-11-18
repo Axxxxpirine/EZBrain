@@ -1,0 +1,13 @@
+# Configuration de la webapp EZBrain Hub — copiée en config.yaml sur le serveur au premier déploiement.
+# Après modification : launchctl kickstart -k gui/$(id -u)/local.ezbrain-hub
+
+server:
+  host: 127.0.0.1          # uniquement joignable via `tailscale serve` (port HTTPS 8446)
+  port: 8792
+  origin: https://mon-serveur.mon-tailnet.ts.net:8446
+
+auth:
+  mode: tailscale          # tailscale | none (none : seulement en local, pour le développement)
+  allowedLogins: []        # identifiants Tailscale autorisés, par exemple moi@example.com ; vide = tout le tailnet
+
+brainRoot: ~/EZBrain       # copie git de la mémoire, alimentée par le hook post-commit du poste de travail
