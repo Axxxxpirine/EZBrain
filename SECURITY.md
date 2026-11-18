@@ -24,3 +24,14 @@ EZBrain is two things with very different exposure:
 
 Your real memory, `config.yaml`, logs, or anything from your own machines. This repository only contains the
 method, the code and fictional example notes.
+
+## Known advisory in the build tooling
+
+`npm audit` in `hub/` reports `picomatch` ([GHSA-fc5q-39xc-vjpf](https://github.com/advisories/GHSA-fc5q-39xc-vjpf)),
+a dependency of Vite. No patched version exists upstream as of 2026-11-18. It does not affect a deployed Hub:
+
+- it is a development dependency, not installed on the server (`deploy/deploy.sh` runs `npm ci --omit=dev`, and
+  `npm audit --omit=dev` reports no vulnerability);
+- it only processes glob patterns from this project's own build configuration, never user input.
+
+It will be updated as soon as a fixed version is published.
