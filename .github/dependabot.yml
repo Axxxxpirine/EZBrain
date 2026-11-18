@@ -8,6 +8,11 @@ updates:
       interval: monthly
     allow:
       - dependency-type: all
+    # The Hub supports Node 22.13 and later: keep the Node typings on that major version,
+    # so the typecheck still catches APIs that do not exist in Node 22.
+    ignore:
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
     groups:
       hub:
         patterns: ["*"]
