@@ -43,7 +43,9 @@ DEPLOY_HOST=moi@mon-serveur deploy/deploy.sh
 # build, copie dans ~/Apps/ezbrain-hub, LaunchAgent local.ezbrain-hub, tailscale serve :8446
 ```
 
-Réglages facultatifs : `DEPLOY_DIR`, `DEPLOY_LABEL`, `DEPLOY_HTTPS_PORT`. Logs : `~/Apps/ezbrain-hub/logs/` sur le serveur.
+Réglages facultatifs : `DEPLOY_DIR`, `DEPLOY_LABEL`, `DEPLOY_HTTPS_PORT`. Pour ne pas les retaper, les écrire une fois dans
+`deploy/deploy.env` (copie de `deploy/deploy.env.example`, jamais versionné) : `deploy/deploy.sh` suffit ensuite.
+Logs : `~/Apps/ezbrain-hub/logs/` sur le serveur.
 Éditer ensuite `~/Apps/ezbrain-hub/config.yaml` (origin, allowedLogins).
 
 Côté poste, brancher la mémoire : `git remote add hub moi@mon-serveur:EZBrain`, puis copier

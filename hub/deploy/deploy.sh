@@ -1,19 +1,22 @@
 #!/bin/bash
 # Build en local, copie sur le serveur macOS, installe/redémarre le LaunchAgent et le `tailscale serve`.
 # Usage : DEPLOY_HOST=moi@mon-serveur deploy/deploy.sh   (DEPLOY_DIR, DEPLOY_LABEL, DEPLOY_HTTPS_PORT pour surcharger)
+# Ces réglages peuvent être écrits une fois dans deploy/deploy.env (non versionné, voir deploy.env.example).
 set -euo pipefail
+
+cd "$(dirname "$0")/.."
+if [ -f deploy/deploy.env ]; then . deploy/deploy.env; fi
 
 HOST="${DEPLOY_HOST:?DEPLOY_HOST manquant, par exemple moi@mon-serveur}"
 DIR="${DEPLOY_DIR:-Apps/ezbrain-hub}" # relatif au home distant
 LABEL="${DEPLOY_LABEL:-local.ezbrain-hub}"
 HTTPS_PORT="${DEPLOY_HTTPS_PORT:-8446}"
 
-cd "$(dirname "$0")/.."
 npm run build
 
 ssh "$HOST" "mkdir -p ~/$DIR/logs"
 rsync -az --delete dist/ "$HOST:$DIR/dist/"
-rsync -az package.json package-lock.json config.example.yaml deploy "$HOST:$DIR/"
+rsync -az --exclude deploy.env package.json package-lock.json config.example.yaml deploy "$HOST:$DIR/"
 
 ssh "$HOST" DIR="$DIR" LABEL="$LABEL" HTTPS_PORT="$HTTPS_PORT" bash -s <<'REMOTE'
 set -euo pipefail
